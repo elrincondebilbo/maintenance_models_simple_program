@@ -1,11 +1,11 @@
 '''
-CTR/CMR MANTAINANCE MODELS
+CTR/CMR MAITENANCE MODELS
 
 This is a very simple program for the CTR
 "Criticidad Total por Riesgo"
 and MCR
 "Matriz de Criticidad por Riesgo"
-mantainance models
+maintenance models
 '''
 
 # Equipment definition as objects
