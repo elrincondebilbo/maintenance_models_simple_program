@@ -10,7 +10,7 @@ maintenance models
 
 # Equipment definition as objects
 
-class Equipo(object):
+class Equipo:
     def __init__(self, name, code):
         self.name = name
         self.code = code
@@ -23,9 +23,20 @@ class Equipo(object):
         self.CM = CM
         self.SHA = SHA
 
-######### Main program #########
+class Inventario:
+    Equipos = []
 
-Equipos = []
+    def __init__(self, Equipos)
+        self.Equipos = Equipos
+
+    def add(self,E):
+        self.Equipos.append(E)
+    
+    def show(self):
+        for E in self.Equipos:
+            print(E)
+
+######### Main program #########
 
 print('')
 print('================================')
@@ -47,8 +58,6 @@ while True:
         print('')
         equipo = input('Ingrese nombre de equipo: ')
         codigo = input('Ingrese código del equipo: ')
-        Equipos.append(Equipo(equipo,codigo))
-
         print('')
 
         print('Elija un modelo')
@@ -142,11 +151,11 @@ while True:
 
 
     elif que_hacer == '2':
-        if len(Equipos) == 0:
+        if len(Inventario.show()) == 0:
             print('')
             print('No se ha encontrado ningún equipo.')
         else:
-            print(Equipos)
+            print(Inventario.shw())
 
     elif que_hacer == '3':
         print('')
