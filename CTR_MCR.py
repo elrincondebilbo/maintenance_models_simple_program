@@ -8,13 +8,13 @@ and MCR
 maintenance models
 '''
 
-# Equipment definition as objects
+# Equipment and inventary definition as objects
 
 class Equipo:
     def __init__(self, name, code):
         self.name = name
         self.code = code
-        print('Se ha creado equipo: ' + self.name + ', código: ' + self.code)
+        print('Se ha creado equipo: ' + self.name + ' , código: ' + self.code)
     
     def modelo_CTR(self, FF, IO, FO, CM, SHA):
         self.FF = FF
@@ -23,10 +23,22 @@ class Equipo:
         self.CM = CM
         self.SHA = SHA
 
+        # Variable cast
+        F_F = int(self.FF)
+        I_O = int(self.IO)
+        F_O = int(self.FO)
+        C_M = int(self.CM)
+        S_H_A = int(self.SHA)
+
+        CTR = F_F * ( (I_O * F_O) + C_M + S_H_A )
+        CTR_info = {'FF':self.FF, 'IO':self.IO, 'FO':self.FO, 'CM':self.CM, 'SHA':self.SHA, 'CTR':str(CTR)}
+
+        print('Valor CTR de' + self.name + ': {}').format(str(CTR))
+
 class Inventario:
     Equipos = []
 
-    def __init__(self, Equipos)
+    def __init__(self, Equipos=[]):
         self.Equipos = Equipos
 
     def add(self,E):
@@ -45,13 +57,14 @@ print('Modelos CTR/CMR')
 while True:
     print('================================')
     print('')
-    print('¿Qué desea hacer?')
-    print('[1] Crear un nuevo equipo y sus datos')
-    print('[2] Ver lista de equipos creados')
-    print('[3] Modificar equipo')
-    print('[4] Borrar equipo')
-    print('[5] Cerrar terminal')
-    print('')
+    print('Main Menu: ¿Qué desea hacer?')
+    print('''
+    [1] Crear un nuevo equipo y sus datos \n
+    [2] Ver lista de equipos creados \n
+    [3] Modificar equipo \n
+    [4] Borrar equipo \n
+    [5] Cerrar terminal \n
+    ''')
     que_hacer = input('Ingrese opción seleccionada: ')
 
     if que_hacer == '1':
@@ -59,11 +72,14 @@ while True:
         equipo = input('Ingrese nombre de equipo: ')
         codigo = input('Ingrese código del equipo: ')
         print('')
+        e = Equipo(equipo,codigo)
 
-        print('Elija un modelo')
-        print('[1] CTR')
-        print('[2] MCR')
         print('')
+        print('Elija un modelo')
+        print('''
+    [1] CTR \n
+    [2] MCR \n
+        ''')
         modelo_seleccionado = input('Ingrese opción seleccionada: ')
 
         # ---------------------------------------------------------------- CTR MODEL ----------------------------------------------------------------
@@ -74,11 +90,12 @@ while True:
                 print('')
                 print('================================')
                 print('Factor de frecuencia de fallos (FF)')
-                print('[4] Frecuente: Mayor de 2 veces al año')
-                print('[3] Promedio: 1 y 2 eventos al año')
-                print('[2] Bueno: entre 0.5 y 1 evento al año')
-                print('[1] Excelente: menos de 0.5 eventos al año')
-                print('')
+                print('''
+    [4] Frecuente: Mayor de 2 veces al año
+    [3] Promedio: 1 y 2 eventos al año
+    [2] Bueno: entre 0.5 y 1 evento al año
+    [1] Excelente: menos de 0.5 eventos al año
+                ''')
 
                 FF = int(input('Ingrese su selección: '))
 
@@ -116,14 +133,13 @@ while True:
                 print('')
                 print('================================')
                 print('Impacto en Seguridad, Higiene y Ambiente (SHA)')
-                print('[8] Bla bla')
-                print('[6] Bla bla')
-                print('[3] Bla bla')
-                print('[1] Bla bla')
+                print('[8] Riesgo alto de pérdida de vida, daños graves a ala salud del personal y/o incidente ambiental mayor (catastrófico) que excedem los límites permitidos')
+                print('[6] Riesgo medio de pérdida de vida , daños importantes a al saud, y/o incidente ambiental de difícil reparación')
+                print('[3] Roesgp mínimo de pérdda de vida y afección a la salud (recuperable en el corto plazo) y/o incidente ambiental menor (controlable), derrames fáciles de contener y fugas repetitivas')
+                print('[1] No existe ningún riesgo de pérdida de vida, ni afección a la salud, ni daño ambientales')
                 print('')
 
                 SHA = int(input('Ingrese su selección: '))
-
                 # Add detection to invalid command
                 #if FF != ['1','2','3','4']:
                 #    print('Comando inválido. Cerrando terminal...')
@@ -131,7 +147,7 @@ while True:
                 #else:
                 #    Equipo.modelo_CTR()
 
-                Equipo.modelo_CTR(FF,IO,FO,CM,SHA) # Still problems to create the model
+                e.modelo_CTR(FF,IO,FO,CM,SHA) # Still problems to create the model
 
                 break
                 
@@ -151,11 +167,16 @@ while True:
 
 
     elif que_hacer == '2':
-        if len(Inventario.show()) == 0:
-            print('')
-            print('No se ha encontrado ningún equipo.')
-        else:
-            print(Inventario.shw())
+        print('')
+        print('En mantenimiento. Cerrando terminal...')
+        break
+
+        # Trabajo con ficheros (base de datos)
+        #if len(Inventario.show()) == 0:
+        #    print('')
+        #    print('No se ha encontrado ningún equipo.')
+        #else:
+        #    print(Inventario.shw())
 
     elif que_hacer == '3':
         print('')
